@@ -13,16 +13,16 @@ export default function Header() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                                <Nav.Link>
-                                    <Link className="nav-link" to="/cart">
-                                        <i className="fas fa-shopping-cart"></i>Cart
-                                    </Link>        
-                                </Nav.Link>
-                            <Nav.Link>
+                            <Navbar.Text>
+                                <Link className="nav-link" to="/cart">
+                                    <i className="fas fa-shopping-cart"></i>Cart
+                                </Link>
+                            </Navbar.Text>
+                            <Navbar.Text>
                                 <Link className="nav-link" to="/login">
                                     <i className="fas fa-user"></i>Login
                                 </Link>
-                            </Nav.Link>
+                            </Navbar.Text>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
