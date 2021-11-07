@@ -5,6 +5,7 @@ import Footer from "./components/Footer"
 import HomeScreen from "./screens/HomeScreen"
 import ProductScreen from "./screens/ProductScreen"
 import CartScreen from "./screens/CartScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 export default function App() {
     return (
@@ -14,6 +15,7 @@ export default function App() {
                 <Container>
                     <Routes>
                         <Route path='/' element={<HomeScreen/>} exact/>
+                        <Route path='login' element={<LoginScreen/>} />
                         <Route path='products/:id' element={<ProductScreen/>}/>
                         <Route path='cart/' element={<CartScreen/>}>
                             <Route path=':id' element={<CartScreen/>}/>
