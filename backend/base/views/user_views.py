@@ -46,7 +46,7 @@ def register_user(request):
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer, ABC):
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         serializer = UserSerializerWithToken(self.user).data
