@@ -1,5 +1,3 @@
-from abc import ABC
-
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -8,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+import traceback
 
 from ..serializers import UserSerializer, UserSerializerWithToken
 
@@ -36,13 +35,13 @@ def register_user(request):
         user = User.objects.create_user(
             username=data['email'],
             email=data['email'],
-            password=make_password(data['password']),
+            password=data['password'],
             first_name=data['name']
         )
         serializer = UserSerializerWithToken(user, many=False)
         return Response(serializer.data)
-    finally:
-        message = {'detail': 'User with this email already exists'}
+    except Exception as e:
+        message = {'detail': traceback.format_exc()}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
