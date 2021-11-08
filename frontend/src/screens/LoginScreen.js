@@ -16,7 +16,7 @@ export default function LoginScreen() {
     const dispatch = useDispatch()
     const { error, loading, userInfos } = userLogin
     let urlParams = new URLSearchParams(location.search)
-    const redirect = urlParams.get("redirect") ? urlParams.get("redirect") : '/'
+    const redirect = urlParams.get('redirect') ? urlParams.get('redirect') : '/'
 
     useEffect(() => {
         if (userInfos) {
@@ -35,7 +35,7 @@ export default function LoginScreen() {
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
-                <Form.Group className="mb-3" controlId='email'>
+                <Form.Group className='mb-3' controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control
                         type='email'
@@ -46,7 +46,7 @@ export default function LoginScreen() {
                     </Form.Control>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId='password'>
+                <Form.Group className='mb-3' controlId='password'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         type='password'

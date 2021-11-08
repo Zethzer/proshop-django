@@ -1,7 +1,7 @@
-import React from "react"
-import { Card } from "react-bootstrap"
-import Rating from "./Rating"
-import { Link } from "react-router-dom"
+import React from 'react'
+import { Card } from 'react-bootstrap'
+import Rating from './Rating'
+import { Link } from 'react-router-dom'
 
 export default function Product({ product }) {
     return (
@@ -21,7 +21,7 @@ export default function Product({ product }) {
                         <Rating
                             value={product.rating}
                             text={`${product.numReviews} reviews`}
-                            color={"#f8e825"}
+                            color={'#f8e825'}
                         />
                     </div>
                 </Card.Text>

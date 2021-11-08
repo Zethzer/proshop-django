@@ -1,11 +1,11 @@
-import React, { useEffect } from "react"
-import { Col, Row } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useEffect } from 'react'
+import { Col, Row } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 
-import Product from "../components/Product"
-import Loader from "../components/Loader"
-import Message from "../components/Message"
-import { listProducts } from "../actions/productActions"
+import Product from '../components/Product'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { listProducts } from '../actions/productActions'
 
 export default function HomeScreen() {
     const dispatch = useDispatch(listProducts)

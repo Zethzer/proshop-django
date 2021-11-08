@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart, removeFromCart } from "../actions/cartActions"
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 export default function CartScreen() {
     const params = useParams()
@@ -14,7 +14,7 @@ export default function CartScreen() {
     const { cartItems } = cart
     const productId = params.id
     let urlParams = new URLSearchParams(location.search)
-    const qty = urlParams.get("qty") ? Number(urlParams.get("qty")) : 1
+    const qty = urlParams.get('qty') ? Number(urlParams.get('qty')) : 1
 
     useEffect(() => {
         if (productId) {
@@ -74,7 +74,7 @@ export default function CartScreen() {
                                             variant='light'
                                             onClick={() => removeFromCartHandler(item.product)}
                                         >
-                                            <i className='fas fa-trash'></i>
+                                            <i className='fas fa-trash'/>
                                         </Button>
                                     </Col>
                                 </Row>

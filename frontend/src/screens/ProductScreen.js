@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
-import {Button, Card, Col, Image, ListGroup, Row, Form} from "react-bootstrap"
-import {Link, useNavigate, useParams} from "react-router-dom"
-import {useDispatch, useSelector} from "react-redux"
-import Rating from "../components/Rating"
-import Loader from "../components/Loader"
-import Message from "../components/Message"
-import {listProductDetails} from "../actions/productActions"
+import React, { useEffect, useState } from 'react'
+import { Button, Card, Col, Image, ListGroup, Row, Form } from 'react-bootstrap'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Rating from '../components/Rating'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
+import { listProductDetails } from '../actions/productActions'
 
 export default function ProductScreen() {
     const params = useParams()
@@ -14,7 +14,7 @@ export default function ProductScreen() {
 
     const dispatch = useDispatch()
     const productDetails = useSelector((state) => state.productDetails)
-    const {loading, error, product} = productDetails
+    const { loading, error, product } = productDetails
 
     useEffect(() => {
         dispatch(listProductDetails(params.id))
@@ -74,8 +74,8 @@ export default function ProductScreen() {
                                         <Col>Status:</Col>
                                         <Col>
                                             {product.countInStock > 0
-                                                ? "In Stock"
-                                                : "Out of Stock"}
+                                                ? 'In Stock'
+                                                : 'Out of Stock'}
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
@@ -99,7 +99,6 @@ export default function ProductScreen() {
                                                     }
                                                 </Form.Control>
                                             </Col>
-                                            <Col></Col>
                                         </Row>
                                     </ListGroup.Item>
                                 )}
