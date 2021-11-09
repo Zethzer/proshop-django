@@ -7,6 +7,7 @@ import ProductScreen from './screens/ProductScreen'
 import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
+import ProfileScreen from './screens/ProfileScreen'
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                         <Route path='/' element={<HomeScreen/>} exact/>
                         <Route path='login' element={<LoginScreen/>} />
                         <Route path='register' element={<RegisterScreen/>} />
+                        <Route path='profile' element={<ProfileScreen/>} />
                         <Route path='products/:id' element={<ProductScreen/>}/>
                         <Route path='cart/' element={<CartScreen/>}>
                             <Route path=':id' element={<CartScreen/>}/>
