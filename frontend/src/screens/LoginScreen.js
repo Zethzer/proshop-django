@@ -20,7 +20,7 @@ export default function LoginScreen() {
 
     useEffect(() => {
         if (userInfos) {
-            navigate(redirect)
+            navigate('/' + redirect)
         }
     }, [userInfos, navigate, redirect])
 
