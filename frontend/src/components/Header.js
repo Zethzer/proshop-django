@@ -41,6 +41,20 @@ export default function Header() {
                                     <i className='fas fa-user'/>Login
                                 </Nav.Link>
                             )}
+
+                            {userInfos && userInfos.is_admin && (
+                                <NavDropdown title='Admin' id='adminmenue'>
+                                    <NavDropdown.Item as={Link} to='/admin/userlist'>
+                                        Users
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to='/admin/products'>
+                                        Products
+                                    </NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to='/admin/orders'>
+                                        Orders
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
