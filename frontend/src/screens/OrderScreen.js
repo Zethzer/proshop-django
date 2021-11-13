@@ -47,7 +47,7 @@ export default function OrderScreen() {
                         <ListGroup.Item>
                             <h2>Shipping</h2>
                             <p>
-                                <stong>Name:</stong>
+                                <strong>Name:</strong>
                                 {order.user.name}</p>
                             <p><strong>Email: </strong> <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
                             </p>
@@ -60,7 +60,7 @@ export default function OrderScreen() {
                                 {order.shippingAddress.country}
                             </p>
                             {order.isDelivered ? (
-                                <Message variant='success'>Delivered on {order.deliveredAt}</Message>
+                                <Message variant='success'>Delivered on {order.deliveredAt.substring(0,10)}</Message>
                             ) : (
                                 <Message variant='warning'>Not Delivered</Message>
                             )}
@@ -73,7 +73,7 @@ export default function OrderScreen() {
                                 {order.paymentMethod}
                             </p>
                             {order.isPaid ? (
-                                <Message variant='success'>Paid on {order.paidAt}</Message>
+                                <Message variant='success'>Paid on {order.paidAt.substring(0,10)}</Message>
                             ) : (
                                 <Message variant='warning'>Not Paid</Message>
                             )}
