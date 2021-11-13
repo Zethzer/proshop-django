@@ -51,7 +51,7 @@ export default function ProductScreen() {
                                 />
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Price: ${product.price}
+                                Price: €{product.price}
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 Description: {product.description}
@@ -65,7 +65,7 @@ export default function ProductScreen() {
                                     <Row>
                                         <Col>Price:</Col>
                                         <Col>
-                                            <strong>${product.price}</strong>
+                                            <strong>€{product.price}</strong>
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>

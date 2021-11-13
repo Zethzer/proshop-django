@@ -4,23 +4,35 @@ import { Col, Image, ListGroup, Row, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails } from '../actions/orderActions'
+import { getOrderDetails, payOrder } from '../actions/orderActions'
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
+import { ORDER_PAY_RESET } from '../constants/orderConstant'
 
 export default function OrderScreen() {
     const params = useParams()
     const dispatch = useDispatch()
+    const [{ isPending }] = usePayPalScriptReducer()
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, error, loading } = orderDetails
+    const orderPay = useSelector(state => state.orderPay)
+    const { loading: loadingPay, success: successPay } = orderPay
 
     if (!loading && !error) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
 
     useEffect(() => {
-        if (!order || order._id !== Number(params.id)) {
+        if (!order || successPay || order._id !== Number(params.id)) {
+            dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(params.id))
         }
-    }, [order, params, dispatch, error])
+    }, [order, params, dispatch, error, successPay])
+
+    const successPaymentHandler = (data, actions) => {
+        return actions.order.capture().then(() => {
+            dispatch(payOrder(params.id, data))
+        })
+    }
 
     return loading ? (
         <Loader/>
@@ -34,8 +46,11 @@ export default function OrderScreen() {
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <h2>Shipping</h2>
-                            <p><stong>Name:</stong> {order.user.name}</p>
-                            <p><strong>Email: </strong> <a href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
+                            <p>
+                                <stong>Name:</stong>
+                                {order.user.name}</p>
+                            <p><strong>Email: </strong> <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                            </p>
                             <p>
                                 <strong>Shipping: </strong>
                                 {order.shippingAddress.address}, {order.shippingAddress.city}
@@ -80,7 +95,7 @@ export default function OrderScreen() {
                                                     <Link to={`/products/${item.product}`}>{item.name}</Link>
                                                 </Col>
                                                 <Col md={4}>
-                                                    {item.qty} X ${item.price} = ${(item.qty * item.price).toFixed(2)}
+                                                    {item.qty} X €{item.price} = €{(item.qty * item.price).toFixed(2)}
                                                 </Col>
                                             </Row>
                                         </ListGroup.Item>
@@ -99,27 +114,47 @@ export default function OrderScreen() {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Items:</Col>
-                                    <Col>${order.itemsPrice}</Col>
+                                    <Col>€{order.itemsPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Shipping:</Col>
-                                    <Col>${order.shippingPrice}</Col>
+                                    <Col>€{order.shippingPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tax:</Col>
-                                    <Col>${order.taxPrice}</Col>
+                                    <Col>€{order.taxPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Total:</Col>
-                                    <Col>${order.totalPrice}</Col>
+                                    <Col>€{order.totalPrice}</Col>
                                 </Row>
                             </ListGroup.Item>
+                            {!order.isPaid && (
+                                <ListGroup.Item>
+                                    {loadingPay && <Loader/>}
+                                    {isPending && <Loader/>}
+                                    <PayPalButtons
+                                        createOrder={(data, actions) => {
+                                            return actions.order.create({
+                                                purchase_units: [
+                                                    {
+                                                        amount: {
+                                                            value: `${order.totalPrice}`,
+                                                        },
+                                                    },
+                                                ],
+                                            })
+                                        }}
+                                        onApprove={successPaymentHandler}
+                                    />
+                                </ListGroup.Item>
+                            )}
                         </ListGroup>
                     </Card>
                 </Col>
