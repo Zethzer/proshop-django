@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { getUserList } from '../actions/userActions'
+import { deleteUser, getUserList } from '../actions/userActions'
 
 export default function UserListScreen() {
     const navigate = useNavigate()
@@ -16,16 +16,21 @@ export default function UserListScreen() {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfos } = userLogin
 
+    const userDelete = useSelector(state => state.userDelete)
+    const { success: successDelete } = userDelete
+
     useEffect(() => {
         if (userInfos && userInfos.is_admin) {
             dispatch(getUserList())
         } else {
             navigate('/login')
         }
-    }, [dispatch, navigate, userInfos])
+    }, [dispatch, navigate, userInfos, successDelete])
 
     const deleteHandler = (id) => {
-
+        if(window.confirm('Are you sure you want to delete this user?')) {
+            dispatch(deleteUser(id))
+        }
     }
 
     return (
