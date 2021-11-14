@@ -47,10 +47,10 @@ export default function Header() {
                                     <NavDropdown.Item as={Link} to='/admin/userlist'>
                                         Users
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to='/admin/products'>
+                                    <NavDropdown.Item as={Link} to='/admin/productlist'>
                                         Products
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to='/admin/orders'>
+                                    <NavDropdown.Item as={Link} to='/admin/orderlist'>
                                         Orders
                                     </NavDropdown.Item>
                                 </NavDropdown>
