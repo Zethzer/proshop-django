@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import Cookies from 'js-cookie'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
@@ -20,6 +22,7 @@ export default function ProductEditScreen() {
     const [category, setCategory] = useState('')
     const [countInStock, setCountInStock] = useState(0)
     const [description, setDescription] = useState('')
+    const [uploading, setUploading] = useState(false)
 
     const userLogin = useSelector(state => state.userLogin)
     const { userInfos } = userLogin
@@ -68,6 +71,37 @@ export default function ProductEditScreen() {
         }))
     }
 
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+
+        formData.append('image', file)
+        formData.append('product_id', params.id)
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${userInfos.access}`,
+                    'X-CSRFToken': Cookies.get('csrftoken')
+                }
+            }
+
+            const { data } = await axios.post(
+                '/api/products/upload/',
+                formData,
+                config
+            )
+
+            setImage(data)
+            dispatch(listProductDetails(params.id))
+            setUploading(false)
+        } catch (e) {
+            setUploading(false)
+        }
+    }
+
     return (
         <div>
             <Link to='/admin/productlist'>
@@ -112,6 +146,8 @@ export default function ProductEditScreen() {
                                     onChange={(e) => setImage(e.target.value)}
                                 >
                                 </Form.Control>
+                                <Form.Control type='file' onChange={uploadFileHandler}/>
+                                {uploading && <Loader/>}
                             </Form.Group>
 
                             <Form.Group className='mb-3' controlId='brand'>
