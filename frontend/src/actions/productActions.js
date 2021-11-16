@@ -202,11 +202,6 @@ export const createProductReview = (id, review) => async (dispatch, getState) =>
             type: PRODUCT_CREATE_REVIEW_SUCCESS,
             payload: data
         })
-
-        dispatch({
-            type: PRODUCT_DETAILS_SUCCESS,
-            payload: data
-        })
     } catch (error) {
         dispatch({
             type: PRODUCT_CREATE_REVIEW_FAIL,
