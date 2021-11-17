@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import { listProducts } from '../actions/productActions'
+import ProductCarousel from '../components/ProductCarousel'
 
 export default function HomeScreen() {
     const location = useLocation()
@@ -23,6 +24,8 @@ export default function HomeScreen() {
 
     return (
         <div>
+            {!keyword && <ProductCarousel/>}
+
             <h1>Latest Products</h1>
             {loading ? (
                 <Loader/>

@@ -20,6 +20,64 @@ h3 {
     margin: 0.1em;
 }
 
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+    display: flex;
+}
+
+/*
+ * Don't have this class in my custom bootstrap theme
+ * https://react-bootstrap.github.io/components/carousel/
+ */
+.carousel-indicators [data-bs-target] {
+    box-sizing: content-box;
+    flex: 0 1 auto;
+    width: 30px;
+    height: 3px;
+    padding: 0;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 0;
+}
+
+.carousel-caption h4 {
+    color: #ffffff;
+}
+
+.carousel img {
+    display: block;
+    height: 300px;
+    padding: 30px;
+    margin: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carousel a {
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .carousel-caption h2 {
+        font-size: 2.5vw;
+    }
+}
+
 /*
  * Don't have this class in my custom bootstrap theme
  * https://github.com/twbs/bootstrap/blob/main/scss/mixins/_visually-hidden.scss
