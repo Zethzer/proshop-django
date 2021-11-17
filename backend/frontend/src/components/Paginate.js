@@ -15,8 +15,8 @@ export default function Paginate({ pages, page, keyword = '', is_admin = false }
                     key={x + 1}
                     active={x + 1 === page}
                     href={!is_admin ?
-                        `/?keyword=${keyword}&page=${x + 1}`
-                        : `/admin/productlist/?keyword=${keyword}&page=${x + 1}`
+                        `#/?keyword=${keyword}&page=${x + 1}`
+                        : `#/admin/productlist/?keyword=${keyword}&page=${x + 1}`
                     }
                 >
                     {x + 1}
